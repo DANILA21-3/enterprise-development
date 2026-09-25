@@ -1,12 +1,31 @@
-﻿public class Room
+﻿/// <summary>
+/// 
+/// </summary>
+public class HotelRoom
 {
+    /// <summary>
+    /// Идентификатор
+    /// </summary>
     public required int Id { get; set; }
 
-    public required int NumberRoom { get; set; }
-    public required int FloorRoom { get; set; }
+    /// <summary>
+    /// Номер гостиничной комнаты
+    /// </summary>
+    public required int HotelRoomNumber { get; set; }
 
+    /// <summary>
+    /// Этаж комнаты
+    /// </summary>
+    public required int HotelRoomFloor { get; set; }
+
+    /// <summary>
+    /// Наличие балкона
+    /// </summary>
     public required bool HasBalcony { get; set; }
 
-    public required int TypeRoom { get; set; }
+    /// <summary>
+    /// Тип гостиничного номера
+    /// </summary>
+    public required int HotelRoomType { get; set; }
 
 }
