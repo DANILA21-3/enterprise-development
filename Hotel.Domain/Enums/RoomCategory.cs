@@ -1,30 +1,33 @@
-﻿/// <summary>
+﻿namespace Hotel.Domain.Enums;
+
+using Hotel.Domain.Enums;
+/// <summary>
 /// Категория номера гостиницы
 /// </summary>
-public enum HotelRoomCategory
+public enum RoomCategory
 {
 	/// <summary>
 	/// Эконом
 	/// </summary>
-	Economy,
+	economy,
 
 	/// <summary>
 	/// Стандарт
 	/// </summary>
-	Standart,
+	standart,
 
 	/// <summary>
 	/// Люкс
 	/// </summary>
-	Luxe,
+	luxe,
 
 	/// <summary>
 	/// Бизнес
 	/// </summary>
-	Business,
+	business,
 
 	/// <summary>
 	/// Президентский
 	/// </summary>
-	President
+	president
 }

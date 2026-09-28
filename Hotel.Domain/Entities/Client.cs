@@ -1,4 +1,4 @@
-﻿namespace Hotel.Domain;
+﻿namespace Hotel.Domain.Entities;
 
 /// <summary>
 /// Клиенты гостиницы
@@ -28,17 +28,12 @@ public class Client
     /// <summary>
     /// День рождения
     /// </summary>
-    public required DateOnly BirthDate { get; set; }
-
-    /// <summary>
-    /// Серия паспорта
-    /// </summary>
-    public required SerialPassport { get; set; }
+    public required DateTime BirthDate { get; set; }
 
     /// <summary>
     /// Номер паспорта
     /// </summary>
-    public required NumberPassport { get; set; }
+    public required string NumberPassport { get; set; }
 
     /// <summary>
     /// Гражданство

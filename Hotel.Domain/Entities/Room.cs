@@ -1,7 +1,9 @@
-﻿/// <summary>
-/// 
+﻿namespace Hotel.Domain.Entities;
+
+/// <summary>
+/// Гостиничный номер
 /// </summary>
-public class HotelRoom
+public class Room
 {
     /// <summary>
     /// Идентификатор
@@ -11,12 +13,12 @@ public class HotelRoom
     /// <summary>
     /// Номер гостиничной комнаты
     /// </summary>
-    public required int HotelRoomNumber { get; set; }
+    public required int Number { get; set; }
 
     /// <summary>
     /// Этаж комнаты
     /// </summary>
-    public required int HotelRoomFloor { get; set; }
+    public required int Floor { get; set; }
 
     /// <summary>
     /// Наличие балкона
@@ -26,6 +28,6 @@ public class HotelRoom
     /// <summary>
     /// Тип гостиничного номера
     /// </summary>
-    public required int HotelRoomType { get; set; }
+    public required RoomType RoomType { get; set; }
 
 }

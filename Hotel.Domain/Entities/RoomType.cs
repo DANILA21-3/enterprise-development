@@ -1,9 +1,11 @@
 ﻿using Hotel.Domain.Enums;
 
+namespace Hotel.Domain.Entities;
+
 /// <summary>
 /// Тип гостиничного номера
 /// </summary>
-public class HotelRoomType
+public class RoomType
 {
     /// <summary>
     /// Идентификатор
@@ -13,12 +15,12 @@ public class HotelRoomType
     /// <summary>
     /// Категория гостиничного номера
     /// </summary>
-    public required HotelRoomCategory Category { get; set; }
+    public required RoomCategory Category { get; set; }
 
     /// <summary>
     /// Площадь гостиничного номера
     /// </summary>
-    public required int HotelRoomArea { get; set; }
+    public required int RoomArea { get; set; }
 
     /// <summary>
     /// Количество кроватей
@@ -29,5 +31,10 @@ public class HotelRoomType
     /// Наличие ванны/душа
     /// </summary>
     public required bool HasBathroom { get; set; }
+
+    /// <summary>
+    /// Цена комнаты за сутки проживания (в рублях)
+    /// </summary>
+    public required int Price { get; set; }
 
 }
