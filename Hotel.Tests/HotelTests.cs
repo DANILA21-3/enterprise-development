@@ -29,7 +29,8 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
             .Where(booking => booking.Room.RoomType.Id == SelectedTypeRoomId)
             .Select(booking => booking.Client)
             .DistinctBy(client => client.Id)
-            .OrderBy(client => client.LastName)
+            .OrderBy(client => client.Id)
+            .ThenBy(client => client.LastName)
             .ThenBy(client => client.FirstName)
             .ThenBy(client => client.Patronymic)
             .Select(client => $"{client.Id} {client.LastName} {client.FirstName}" +
