@@ -22,7 +22,7 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
         string[] CheckResult =
         [
             "5 Киркоров Филипп Бедросович 30.04.1967 4932 104581 РФ",
-            "9 Yoon Suk-Yeol  18.12.1960 M48129384 KR"
+            "9 Yoon Suk-Yeol 18.12.1960 M48129384 KR"
         ];
 
         var Result = fixture.Bookings
@@ -32,10 +32,9 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
             .OrderBy(client => client.LastName)
             .ThenBy(client => client.FirstName)
             .ThenBy(client => client.Patronymic)
-            .Select(client => $"{client.Id} " +
-                              $"{client.LastName} {client.FirstName} {client.Patronymic} " +
-                              $"{client.BirthDate:dd.MM.yyyy} " +
-                              $"{client.NumberPassport} {client.Citizenship}")
+            .Select(client => $"{client.Id} {client.LastName} {client.FirstName}" +
+                              (string.IsNullOrEmpty(client.Patronymic) ? "" : $" {client.Patronymic}") +
+                              $" {client.BirthDate:dd.MM.yyyy} {client.NumberPassport} {client.Citizenship}")
             .ToList();
 
         Assert.Equal(CheckResult, Result);
