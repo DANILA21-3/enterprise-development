@@ -6,31 +6,33 @@ namespace Hotel.Tests;
 public class HotelFixture
 {
     /// <summary>
-	/// Комнаты
+	/// Список комнат
 	/// </summary>
 	public List<Room> Rooms { get; set; } = [];
 
     /// <summary>
-	/// Типы комнат
+	/// Список типов комнат
 	/// </summary>
     public List<RoomType> RoomTypes { get; set; } = [];
 
     /// <summary>
-	/// Клиенты
+	/// Список клиентов
 	/// </summary>
     public List<Client> Clients { get; set;  } = [];
 
     /// <summary>
-	/// Бронирования
+	/// Список бронирований
 	/// </summary>
     public List<Booking> Bookings { get; set; } = [];
 
-    
+    /// <summary>
+    /// Создание объектов классов и заполнение списков
+    /// </summary>
     public HotelFixture() 
     {
 
         /// <summary>
-        /// Заполнение списка типа комнат
+        /// Типы комнат
         /// </summary>
         var type1 = new RoomType { Id = 0, Category = RoomCategory.economy, RoomArea = 8, BedCount = 1, HasBathroom = false, Price = 2500 };
         var type2 = new RoomType { Id = 1, Category = RoomCategory.economy, RoomArea = 10, BedCount = 1, HasBathroom = false, Price = 2700 };
@@ -46,7 +48,7 @@ public class HotelFixture
         RoomTypes.AddRange([type1, type2, type3, type4, type5, type6, type7, type8, type9, type10]);
 
         /// <summary>
-        /// Заполнение списка комнат
+        /// Комнаты
         /// </summary>
         var room1 = new Room { Id = 0, Number = 1, Floor = 1, HasBalcony = false, RoomType = type1 };
         var room2 = new Room { Id = 1, Number = 3, Floor = 1, HasBalcony = false, RoomType = type1 };
@@ -67,7 +69,7 @@ public class HotelFixture
         Rooms.AddRange([room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15]);
 
         /// <summary>
-        /// Заполнение списка клиентов
+        /// Клиенты
         /// </summary>
         var client1 = new Client { Id = 0, LastName = "Клюева", FirstName = "Мария", Patronymic = "Николаевна", BirthDate = new DateTime(1990, 04, 12), NumberPassport = "1234 678901", Citizenship = "РФ" };
         var client2 = new Client { Id = 1, LastName = "Волоконов", FirstName = "Петр", Patronymic = "Васильевич", BirthDate = new DateTime(1967, 05, 27), NumberPassport = "3421 576230", Citizenship = "РФ" };
@@ -83,7 +85,7 @@ public class HotelFixture
         Clients.AddRange([client1, client2, client3, client4, client5, client6, client7, client8, client9, client10]);
 
         /// <summary>
-        /// Заполнение списка бронирований
+        /// Бронирования
         /// </summary>
         var booking1 = new Booking { Id = 0, DateArrival = new DateTime(2021, 05, 09), DayCount = 101, Client = client1, Room = room2 };
         var booking2 = new Booking { Id = 1, DateArrival = new DateTime(2025, 01, 02), DayCount = 7, Client = client6, Room = room10 };
@@ -104,7 +106,7 @@ public class HotelFixture
         var booking17 = new Booking { Id = 16, DateArrival = new DateTime(2021, 01, 26), DayCount = 2, Client = client10, Room = room12 };
         var booking18 = new Booking { Id = 17, DateArrival = new DateTime(2021, 09, 10), DayCount = 11, Client = client4, Room = room15 };
         var booking19 = new Booking { Id = 18, DateArrival = new DateTime(2021, 02, 15), DayCount = 21, Client = client1, Room = room6 };
-        var booking20 = new Booking { Id = 19, DateArrival = new DateTime(2021, 12, 19), DayCount = 60, Client = client2, Room = room9 };
+        var booking20 = new Booking { Id = 19, DateArrival = new DateTime(2021, 12, 19), DayCount = 60, Client = client2, Room = room15 };
 
         Bookings.AddRange([booking1, booking2, booking3, booking4, booking5, booking6, booking7, booking8, booking9, booking10, booking11, booking12, booking13, booking14, booking15, booking16, booking17, booking18, booking19, booking20]);
     }
