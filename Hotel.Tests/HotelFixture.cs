@@ -31,9 +31,7 @@ public class HotelFixture
     public HotelFixture() 
     {
 
-        /// <summary>
-        /// Типы комнат
-        /// </summary>
+        // Типы комнат
         var type1 = new RoomType { Id = 0, Category = RoomCategory.economy, RoomArea = 8, BedCount = 1, HasBathroom = false, Price = 2500 };
         var type2 = new RoomType { Id = 1, Category = RoomCategory.economy, RoomArea = 10, BedCount = 1, HasBathroom = false, Price = 2700 };
         var type3 = new RoomType { Id = 2, Category = RoomCategory.standart, RoomArea = 20, BedCount = 1, HasBathroom = false, Price = 5000 };
@@ -47,9 +45,7 @@ public class HotelFixture
 
         RoomTypes.AddRange([type1, type2, type3, type4, type5, type6, type7, type8, type9, type10]);
 
-        /// <summary>
-        /// Комнаты
-        /// </summary>
+        // Комнаты
         var room1 = new Room { Id = 0, Number = 1, Floor = 1, HasBalcony = false, RoomType = type1 };
         var room2 = new Room { Id = 1, Number = 3, Floor = 1, HasBalcony = false, RoomType = type1 };
         var room3 = new Room { Id = 2, Number = 4, Floor = 1, HasBalcony = false, RoomType = type2 };
@@ -68,9 +64,7 @@ public class HotelFixture
 
         Rooms.AddRange([room1, room2, room3, room4, room5, room6, room7, room8, room9, room10, room11, room12, room13, room14, room15]);
 
-        /// <summary>
-        /// Клиенты
-        /// </summary>
+        // Клиенты
         var client1 = new Client { Id = 0, LastName = "Клюева", FirstName = "Мария", Patronymic = "Николаевна", BirthDate = new DateTime(1990, 04, 12), NumberPassport = "1234 678901", Citizenship = "РФ" };
         var client2 = new Client { Id = 1, LastName = "Волоконов", FirstName = "Петр", Patronymic = "Васильевич", BirthDate = new DateTime(1967, 05, 27), NumberPassport = "3421 576230", Citizenship = "РФ" };
         var client3 = new Client { Id = 2, LastName = "Валеев", FirstName = "Виталий", Patronymic = "Владимирович", BirthDate = new DateTime(1994, 06, 08), NumberPassport = "6234 817462", Citizenship = "РФ" };
@@ -84,9 +78,7 @@ public class HotelFixture
 
         Clients.AddRange([client1, client2, client3, client4, client5, client6, client7, client8, client9, client10]);
 
-        /// <summary>
-        /// Бронирования
-        /// </summary>
+        // Бронирования
         var booking1 = new Booking { Id = 0, DateArrival = new DateTime(2021, 05, 09), DayCount = 101, Client = client1, Room = room2 };
         var booking2 = new Booking { Id = 1, DateArrival = new DateTime(2025, 01, 02), DayCount = 7, Client = client6, Room = room10 };
         var booking3 = new Booking { Id = 2, DateArrival = new DateTime(2015, 10, 25), DayCount = 15, Client = client8, Room = room4 };

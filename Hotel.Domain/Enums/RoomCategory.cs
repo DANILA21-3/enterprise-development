@@ -1,7 +1,5 @@
 ﻿namespace Hotel.Domain.Enums;
 
-using Hotel.Domain.Enums;
-
 /// <summary>
 /// Категория номера гостиницы
 /// </summary>
