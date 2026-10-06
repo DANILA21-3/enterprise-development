@@ -8,25 +8,25 @@ public enum RoomCategory
 	/// <summary>
 	/// Эконом
 	/// </summary>
-	economy,
+	Economy = 1,
 
 	/// <summary>
 	/// Стандарт
 	/// </summary>
-	standart,
+	Standart = 2,
 
 	/// <summary>
 	/// Люкс
 	/// </summary>
-	luxe,
+	Luxe = 3,
 
 	/// <summary>
 	/// Бизнес
 	/// </summary>
-	business,
+	Business = 4,
 
 	/// <summary>
 	/// Президентский
 	/// </summary>
-	president
+	President = 5
 }

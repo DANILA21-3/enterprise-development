@@ -58,14 +58,13 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
         ];
 
         var NumberRooms = fixture.Bookings
-            .Where(booking => booking.DateArrival <= CurrentDay
-                                && booking.DateArrival.AddDays(booking.DayCount) >= CurrentDay)
-            .Select(booking => $"{booking.Room.Number} {booking.Room.Floor} " +
-                               $"{(booking.Room.HasBalcony ? "Да" : "Нет")} " +
-                               $"{booking.Room.RoomType.Category} {booking.Room.RoomType.RoomArea} " +
-                               $"{booking.Room.RoomType.BedCount} " +
-                               $"{(booking.Room.RoomType.HasBathroom ? "Да" : "Нет")} " +
-                               $"{booking.Room.RoomType.Price}")
+            .Where(booking => booking.DateArrival <= CurrentDay && booking.DateArrival.AddDays(booking.DayCount) >= CurrentDay)
+            .Select(booking => 
+                $"{booking.Room.Number} {booking.Room.Floor} " +$"{(booking.Room.HasBalcony ? "Да" : "Нет")} " +
+                $"{booking.Room.RoomType.Category} {booking.Room.RoomType.RoomArea} " +     
+                $"{booking.Room.RoomType.BedCount} " +
+                $"{(booking.Room.RoomType.HasBathroom ? "Да" : "Нет")} " +        
+                $"{booking.Room.RoomType.Price}")
             .Distinct()
             .OrderBy(number => number)
             .ToList();
