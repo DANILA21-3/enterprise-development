@@ -32,16 +32,16 @@ public class HotelFixture
     {
 
         // Типы комнат
-        var type1 = new RoomType { Id = 1, Category = RoomCategory.economy, RoomArea = 8, BedCount = 1, HasBathroom = false, Price = 2500 };
-        var type2 = new RoomType { Id = 2, Category = RoomCategory.economy, RoomArea = 10, BedCount = 1, HasBathroom = false, Price = 2700 };
-        var type3 = new RoomType { Id = 3, Category = RoomCategory.standart, RoomArea = 20, BedCount = 1, HasBathroom = false, Price = 5000 };
-        var type4 = new RoomType { Id = 4, Category = RoomCategory.standart, RoomArea = 15, BedCount = 1, HasBathroom = false, Price = 4000 };
-        var type5 = new RoomType { Id = 5, Category = RoomCategory.luxe, RoomArea = 25, BedCount = 2, HasBathroom = true, Price = 11000 };
-        var type6 = new RoomType { Id = 6, Category = RoomCategory.luxe, RoomArea = 30, BedCount = 2, HasBathroom = true, Price = 12000 };
-        var type7 = new RoomType { Id = 7, Category = RoomCategory.business, RoomArea = 45, BedCount = 3, HasBathroom = true, Price = 18000 };
-        var type8 = new RoomType { Id = 8, Category = RoomCategory.business, RoomArea = 50, BedCount = 4, HasBathroom = true, Price = 19500 };
-        var type9 = new RoomType { Id = 9, Category = RoomCategory.president, RoomArea = 90, BedCount = 2, HasBathroom = true, Price = 750000 };
-        var type10 = new RoomType { Id = 10, Category = RoomCategory.president, RoomArea = 100, BedCount = 6, HasBathroom = true, Price = 650000 };
+        var type1 = new RoomType { Id = 1, Category = RoomCategory.Economy, RoomArea = 8, BedCount = 1, HasBathroom = false, Price = 2500 };
+        var type2 = new RoomType { Id = 2, Category = RoomCategory.Economy, RoomArea = 10, BedCount = 1, HasBathroom = false, Price = 2700 };
+        var type3 = new RoomType { Id = 3, Category = RoomCategory.Standart, RoomArea = 20, BedCount = 1, HasBathroom = false, Price = 5000 };
+        var type4 = new RoomType { Id = 4, Category = RoomCategory.Standart, RoomArea = 15, BedCount = 1, HasBathroom = false, Price = 4000 };
+        var type5 = new RoomType { Id = 5, Category = RoomCategory.Luxe, RoomArea = 25, BedCount = 2, HasBathroom = true, Price = 11000 };
+        var type6 = new RoomType { Id = 6, Category = RoomCategory.Luxe, RoomArea = 30, BedCount = 2, HasBathroom = true, Price = 12000 };
+        var type7 = new RoomType { Id = 7, Category = RoomCategory.Business, RoomArea = 45, BedCount = 3, HasBathroom = true, Price = 18000 };
+        var type8 = new RoomType { Id = 8, Category = RoomCategory.Business, RoomArea = 50, BedCount = 4, HasBathroom = true, Price = 19500 };
+        var type9 = new RoomType { Id = 9, Category = RoomCategory.President, RoomArea = 90, BedCount = 2, HasBathroom = true, Price = 750000 };
+        var type10 = new RoomType { Id = 10, Category = RoomCategory.President, RoomArea = 100, BedCount = 6, HasBathroom = true, Price = 650000 };
 
         RoomTypes.AddRange([type1, type2, type3, type4, type5, type6, type7, type8, type9, type10]);
 

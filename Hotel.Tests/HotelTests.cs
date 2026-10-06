@@ -16,17 +16,17 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
 	public void FindClientByTypeRoom()
 	{
         // Id указанного типа комнаты
-        var SelectedTypeRoomId = 4;
+        var selectedTypeRoomId = 4;
         
         // Ожидаемый результат
-        string[] CheckResult =
+        string[] checkResult =
         [
-            "5 Киркоров Филипп Бедросович 30.04.1967 4932 104581 РФ",
-            "9 Yoon Suk-Yeol 18.12.1960 M48129384 KR"
+            "6 Киркоров Филипп Бедросович 30.04.1967 4932 104581 РФ",
+            "10 Yoon Suk-Yeol 18.12.1960 M48129384 KR"
         ];
 
-        var Result = fixture.Bookings
-            .Where(booking => booking.Room.RoomType.Id == SelectedTypeRoomId)
+        var result = fixture.Bookings
+            .Where(booking => booking.Room.RoomType.Id == selectedTypeRoomId)
             .Select(booking => booking.Client)
             .DistinctBy(client => client.Id)
             .OrderBy(client => client.Id)
@@ -38,7 +38,7 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
                               $" {client.BirthDate:dd.MM.yyyy} {client.NumberPassport} {client.Citizenship}")
             .ToList();
 
-        Assert.Equal(CheckResult, Result);
+        Assert.Equal(checkResult, result);
     }
 
     /// <summary>
@@ -48,17 +48,17 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
     public void RoomBooked()
     {
         // Заданное время для теста
-        var CurrentDay = new DateTime(2019, 04, 13);
+        var currentDay = new DateTime(2019, 04, 13);
 
         // Ожидаемый результат
-        string[] CheckResult = 
+        string[] checkResult = 
         [
-            "4 1 Нет economy 10 1 Нет 2700",
-            "6 1 Нет standart 15 1 Нет 4000"
+            "4 1 Нет Economy 10 1 Нет 2700",
+            "6 1 Нет Standart 15 1 Нет 4000"
         ];
 
-        var NumberRooms = fixture.Bookings
-            .Where(booking => booking.DateArrival <= CurrentDay && booking.DateArrival.AddDays(booking.DayCount) >= CurrentDay)
+        var numberRooms = fixture.Bookings
+            .Where(booking => booking.DateArrival <= currentDay && booking.DateArrival.AddDays(booking.DayCount) >= currentDay)
             .Select(booking => 
                 $"{booking.Room.Number} {booking.Room.Floor} " +$"{(booking.Room.HasBalcony ? "Да" : "Нет")} " +
                 $"{booking.Room.RoomType.Category} {booking.Room.RoomType.RoomArea} " +     
@@ -69,7 +69,7 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
             .OrderBy(number => number)
             .ToList();
         
-        Assert.Equal(CheckResult, NumberRooms);
+        Assert.Equal(checkResult, numberRooms);
     }
 
     /// <summary>
@@ -79,9 +79,9 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
     public void Top5MostFrequentlyBookedRooms()
     {
         // Ожидаемый результат
-        int[] CheckResultNumber = [18, 3, 6, 7, 1];
+        int[] checkResultNumber = [18, 3, 6, 7, 1];
 
-        var NumberRooms = fixture.Bookings
+        var numberRooms = fixture.Bookings
             .GroupBy(booking => booking.Room.Number)
             .OrderByDescending(group => group.Count())
             .ThenBy(group => group.Key)
@@ -89,7 +89,7 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
             .Select(group => group.Key)
             .ToList();
 
-        Assert.Equal(CheckResultNumber, NumberRooms);
+        Assert.Equal(checkResultNumber, numberRooms);
     }
 
     /// <summary>
@@ -99,15 +99,15 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
     public void CountBookingsForEachRoom()
     {
         // Ожидаемый результат
-        int[] CheckResult = [1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 3];
+        int[] checkResult = [1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 3];
 
-        var Result = fixture.Bookings
+        var result = fixture.Bookings
             .GroupBy(booking => booking.Room.Number)
             .OrderBy(group => group.Key)
             .Select(group => group.Count())
             .ToList();
 
-        Assert.Equal(CheckResult, Result);
+        Assert.Equal(checkResult, result);
     }
 
     /// <summary>
@@ -117,9 +117,9 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
     public void Top5ClientsByTotalStay()
     {
         // Ожидаемый результат
-        int[] CheckResultId = [9, 1, 8, 3, 0];
+        int[] checkResultId = [10, 2, 9, 4, 1];
 
-        var ResultId = fixture.Bookings
+        var resultId = fixture.Bookings
             .GroupBy(booking => booking.Client.Id)
             .OrderByDescending(group => group.Sum(booking => booking.DayCount * booking.Room.RoomType.Price))
             .ThenBy(group => group.Key)
@@ -127,6 +127,6 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
             .Select(group => group.Key)
             .ToList();
 
-        Assert.Equal(CheckResultId, ResultId);
+        Assert.Equal(checkResultId, resultId);
     }
 }
