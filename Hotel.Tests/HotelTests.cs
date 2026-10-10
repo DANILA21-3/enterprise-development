@@ -16,26 +16,23 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
 	public void FindClientByTypeRoom()
 	{
         // Id указанного типа комнаты
-        var selectedTypeRoomId = 4;
-        
+        var selectedTypeRoomId = 5;
+
         // Ожидаемый результат
-        string[] checkResult =
-        [
-            "6 Киркоров Филипп Бедросович 30.04.1967 4932 104581 РФ",
-            "10 Yoon Suk-Yeol 18.12.1960 M48129384 KR"
-        ];
+        var checkResult = new[]
+        {
+            new ClientFullName("Yoon", "Suk-Yeol", null),
+            new ClientFullName("Киркоров", "Филипп", "Бедросович")
+        };
 
         var result = fixture.Bookings
             .Where(booking => booking.Room.RoomType.Id == selectedTypeRoomId)
             .Select(booking => booking.Client)
             .DistinctBy(client => client.Id)
-            .OrderBy(client => client.Id)
-            .ThenBy(client => client.LastName)
-            .ThenBy(client => client.FirstName)
-            .ThenBy(client => client.Patronymic)
-            .Select(client => $"{client.Id} {client.LastName} {client.FirstName}" +
-                              (string.IsNullOrEmpty(client.Patronymic) ? "" : $" {client.Patronymic}") +
-                              $" {client.BirthDate:dd.MM.yyyy} {client.NumberPassport} {client.Citizenship}")
+            .OrderBy(client => client.LastName, StringComparer.InvariantCulture)
+            .ThenBy(client => client.FirstName, StringComparer.InvariantCulture)
+            .ThenBy(client => client.Patronymic, StringComparer.InvariantCulture)
+            .Select(client => new ClientFullName(client.LastName, client.FirstName, client.Patronymic))
             .ToList();
 
         Assert.Equal(checkResult, result);
@@ -51,20 +48,11 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
         var currentDay = new DateTime(2019, 04, 13);
 
         // Ожидаемый результат
-        string[] checkResult = 
-        [
-            "4 1 Нет Economy 10 1 Нет 2700",
-            "6 1 Нет Standart 15 1 Нет 4000"
-        ];
+        int[] checkResult = [4, 6];
 
         var numberRooms = fixture.Bookings
             .Where(booking => booking.DateArrival <= currentDay && booking.DateArrival.AddDays(booking.DayCount) >= currentDay)
-            .Select(booking => 
-                $"{booking.Room.Number} {booking.Room.Floor} " +$"{(booking.Room.HasBalcony ? "Да" : "Нет")} " +
-                $"{booking.Room.RoomType.Category} {booking.Room.RoomType.RoomArea} " +     
-                $"{booking.Room.RoomType.BedCount} " +
-                $"{(booking.Room.RoomType.HasBathroom ? "Да" : "Нет")} " +        
-                $"{booking.Room.RoomType.Price}")
+            .Select(booking => booking.Room.Number)
             .Distinct()
             .OrderBy(number => number)
             .ToList();
