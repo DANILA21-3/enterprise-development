@@ -25,7 +25,7 @@ public class RoomType
     /// <summary>
     /// Количество кроватей
     /// </summary>
-    public required int BedCount {  get; set; }
+    public required int BedCount { get; set; }
 
     /// <summary>
     /// Наличие ванны/душа

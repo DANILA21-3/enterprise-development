@@ -5,28 +5,28 @@
 /// </summary>
 public enum RoomCategory
 {
-	/// <summary>
-	/// Эконом
-	/// </summary>
-	Economy = 1,
+    /// <summary>
+    /// Эконом
+    /// </summary>
+    Economy = 1,
 
-	/// <summary>
-	/// Стандарт
-	/// </summary>
-	Standart = 2,
+    /// <summary>
+    /// Стандарт
+    /// </summary>
+    Standart = 2,
 
-	/// <summary>
-	/// Люкс
-	/// </summary>
-	Luxe = 3,
+    /// <summary>
+    /// Люкс
+    /// </summary>
+    Luxe = 3,
 
-	/// <summary>
-	/// Бизнес
-	/// </summary>
-	Business = 4,
+    /// <summary>
+    /// Бизнес
+    /// </summary>
+    Business = 4,
 
-	/// <summary>
-	/// Президентский
-	/// </summary>
-	President = 5
+    /// <summary>
+    /// Президентский
+    /// </summary>
+    President = 5
 }

@@ -18,7 +18,7 @@ public class HotelFixture
     /// <summary>
 	/// Список клиентов
 	/// </summary>
-    public List<Client> Clients { get; set;  } = [];
+    public List<Client> Clients { get; set; } = [];
 
     /// <summary>
 	/// Список бронирований
@@ -28,7 +28,7 @@ public class HotelFixture
     /// <summary>
     /// Создание объектов классов и заполнение списков
     /// </summary>
-    public HotelFixture() 
+    public HotelFixture()
     {
 
         // Типы комнат
@@ -53,7 +53,7 @@ public class HotelFixture
         var room5 = new Room { Id = 5, Number = 6, Floor = 1, HasBalcony = false, RoomType = type4 };
         var room6 = new Room { Id = 6, Number = 7, Floor = 2, HasBalcony = true, RoomType = type4 };
         var room7 = new Room { Id = 7, Number = 8, Floor = 2, HasBalcony = false, RoomType = type5 };
-        var room8 = new Room { Id = 8, Number = 10, Floor = 2, HasBalcony = false,  RoomType = type5 };
+        var room8 = new Room { Id = 8, Number = 10, Floor = 2, HasBalcony = false, RoomType = type5 };
         var room9 = new Room { Id = 9, Number = 11, Floor = 2, HasBalcony = true, RoomType = type6 };
         var room10 = new Room { Id = 10, Number = 13, Floor = 2, HasBalcony = false, RoomType = type7 };
         var room11 = new Room { Id = 11, Number = 14, Floor = 2, HasBalcony = true, RoomType = type7 };

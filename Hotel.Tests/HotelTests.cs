@@ -1,20 +1,18 @@
-﻿using Hotel.Domain.Entities;
-using Hotel.Domain.Enums;
-using Xunit;
+﻿using Xunit;
 
 namespace Hotel.Tests;
 
 /// <summary>
 /// Юнит-тесты по заданным сущностям
 /// </summary>
-public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
+public class HotelTests(HotelFixture fixture) : IClassFixture<HotelFixture>
 {
     /// <summary>
     /// Информация о клиентах, проживающих в номерах указанного типа
     /// </summary>
     [Fact]
-	public void FindClientByTypeRoom()
-	{
+    public void FindClientByTypeRoom()
+    {
         // Id указанного типа комнаты
         var selectedTypeRoomId = 5;
 
@@ -56,7 +54,7 @@ public class HotelTests( HotelFixture fixture ) : IClassFixture <HotelFixture>
             .Distinct()
             .OrderBy(number => number)
             .ToList();
-        
+
         Assert.Equal(checkResult, numberRooms);
     }
 
