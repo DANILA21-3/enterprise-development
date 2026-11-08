@@ -1,11 +1,12 @@
 ﻿using Hotel.Domain.Enums;
+using Hotel.Domain.Interfaces;
 
 namespace Hotel.Domain.Entities;
 
 /// <summary>
 /// Тип гостиничного номера
 /// </summary>
-public class RoomType
+public class RoomType : IEntity
 {
     /// <summary>
     /// Идентификатор

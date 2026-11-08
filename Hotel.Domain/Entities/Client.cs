@@ -1,9 +1,11 @@
-﻿namespace Hotel.Domain.Entities;
+﻿using Hotel.Domain.Interfaces;
+
+namespace Hotel.Domain.Entities;
 
 /// <summary>
 /// Клиенты гостиницы
 /// </summary>
-public class Client
+public class Client : IEntity
 {
     /// <summary>
     /// Идентификатор

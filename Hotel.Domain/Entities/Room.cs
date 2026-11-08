@@ -1,9 +1,11 @@
-﻿namespace Hotel.Domain.Entities;
+﻿using Hotel.Domain.Interfaces;
+
+namespace Hotel.Domain.Entities;
 
 /// <summary>
 /// Гостиничный номер
 /// </summary>
-public class Room
+public class Room : IEntity
 {
     /// <summary>
     /// Идентификатор
