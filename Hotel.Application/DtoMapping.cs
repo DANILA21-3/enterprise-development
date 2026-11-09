@@ -1,6 +1,8 @@
 using Hotel.Contracts.DTO;
 using Hotel.Domain.Entities;
 
+namespace Hotel.Application;
+
 /// <summary>
 /// Преобразует сущности в Dto
 /// </summary>

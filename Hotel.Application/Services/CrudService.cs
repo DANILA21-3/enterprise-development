@@ -1,7 +1,7 @@
 using Hotel.Application.Interfaces;
 using Hotel.Domain.Interfaces;
 
-namespace Hotel.Application;
+namespace Hotel.Application.Services;
 
 /// <summary>
 /// Реализация CRUD-операций
