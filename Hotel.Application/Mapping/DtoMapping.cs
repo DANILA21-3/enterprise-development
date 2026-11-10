@@ -1,7 +1,7 @@
 using Hotel.Contracts.DTO;
 using Hotel.Domain.Entities;
 
-namespace Hotel.Application;
+namespace Hotel.Application.Mapping;
 
 /// <summary>
 /// Преобразует сущности в Dto
