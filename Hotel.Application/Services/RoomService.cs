@@ -7,9 +7,15 @@ using Hotel.Domain.Interfaces;
 
 namespace Hotel.Application.Services;
 
+/// <summary>
+/// Сервис для управления комнатами
+/// </summary>
 public class RoomService(IRepository<Room> repository, IRepository<RoomType> roomTypeRepository)
     : CrudService<Room, RoomRequest, RoomDto>(repository), IRoomService
 {
+    /// <summary>
+    /// Создание сущности комнаты из запроса с проверкой существования типа комнаты
+    /// </summary>
     protected override async Task<Room> BuildEntityAsync(RoomRequest request, int id)
     {
         var roomType = await roomTypeRepository.GetByIdAsync(request.RoomTypeId!.Value);
@@ -25,6 +31,9 @@ public class RoomService(IRepository<Room> repository, IRepository<RoomType> roo
         };
     }
 
+    /// <summary>
+    /// Копирование обновленных значений в существующую сущность комнаты
+    /// </summary>
     protected override void CopyValues(Room source, Room target)
     {
         target.Number = source.Number;
@@ -33,5 +42,8 @@ public class RoomService(IRepository<Room> repository, IRepository<RoomType> roo
         target.RoomType = source.RoomType;
     }
 
+    /// <summary>
+    /// Преобразование сущности комнаты в DTO
+    /// </summary>
     protected override RoomDto ToDto(Room entity) => entity.ToDto();
 }

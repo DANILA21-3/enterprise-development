@@ -7,11 +7,18 @@ using Hotel.Domain.Interfaces;
 
 namespace Hotel.Application.Services;
 
+/// <summary>
+/// Сервис для управления клиентами
+/// </summary>
 public class ClientService(IRepository<Client> repository)
     : CrudService<Client, ClientRequest, ClientDto>(repository), IClientService
 {
-    protected override Task<Client> BuildEntityAsync(ClientRequest request, int id) =>
-        Task.FromResult(new Client
+    /// <summary>
+    /// Создание сущности клиента из запроса
+    /// </summary>
+    protected override Task<Client> BuildEntityAsync(ClientRequest request, int id)
+    {
+        return Task.FromResult(new Client
         {
             Id = id,
             LastName = request.LastName,
@@ -21,7 +28,11 @@ public class ClientService(IRepository<Client> repository)
             NumberPassport = request.NumberPassport,
             Citizenship = request.Citizenship
         });
+    }
 
+    /// <summary>
+    /// Копирование обновленных значений в существующую сущность клиента
+    /// </summary>
     protected override void CopyValues(Client source, Client target)
     {
         target.LastName = source.LastName;
@@ -32,5 +43,8 @@ public class ClientService(IRepository<Client> repository)
         target.Citizenship = source.Citizenship;
     }
 
+    /// <summary>
+    /// Преобразование сущности клиента в DTO
+    /// </summary>
     protected override ClientDto ToDto(Client entity) => entity.ToDto();
 }

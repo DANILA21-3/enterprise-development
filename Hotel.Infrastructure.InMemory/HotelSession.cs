@@ -4,6 +4,9 @@ using Hotel.Domain.Interfaces;
 
 namespace Hotel.Infrastructure.InMemory;
 
+/// <summary>
+/// Сессия для репозиториев всех сущностей
+/// </summary>
 public class HotelSession
 {
     public IRepository<Client> Clients { get; }
@@ -11,6 +14,9 @@ public class HotelSession
     public IRepository<RoomType> RoomTypes { get; }
     public IRepository<Booking> Bookings { get; }
 
+    /// <summary>
+    /// Инициализирует новую сессию
+    /// </summary>
     public HotelSession()
     {
         var seed = new HotelSeed();

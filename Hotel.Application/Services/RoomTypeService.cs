@@ -7,11 +7,18 @@ using Hotel.Domain.Interfaces;
 
 namespace Hotel.Application.Services;
 
+/// <summary>
+/// Сервис для управления типами комнат
+/// </summary>
 public class RoomTypeService(IRepository<RoomType> repository)
     : CrudService<RoomType, RoomTypeRequest, RoomTypeDto>(repository), IRoomTypeService
 {
-    protected override Task<RoomType> BuildEntityAsync(RoomTypeRequest request, int id) =>
-        Task.FromResult(new RoomType
+    /// <summary>
+    /// Создание сущности типа комнаты из запроса
+    /// </summary>
+    protected override Task<RoomType> BuildEntityAsync(RoomTypeRequest request, int id)
+    {
+        return Task.FromResult(new RoomType
         {
             Id = id,
             Category = request.Category!.Value,
@@ -20,7 +27,11 @@ public class RoomTypeService(IRepository<RoomType> repository)
             HasBathroom = request.HasBathroom!.Value,
             Price = request.Price!.Value
         });
+    }
 
+    /// <summary>
+    /// Копирование обновленных значений в существующую сущность типа комнаты
+    /// </summary>
     protected override void CopyValues(RoomType source, RoomType target)
     {
         target.Category = source.Category;
@@ -30,5 +41,8 @@ public class RoomTypeService(IRepository<RoomType> repository)
         target.Price = source.Price;
     }
 
+    /// <summary>
+    /// Преобразование сущности типа комнаты в DTO
+    /// </summary>
     protected override RoomTypeDto ToDto(RoomType entity) => entity.ToDto();
 }

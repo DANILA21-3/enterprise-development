@@ -6,8 +6,16 @@ using Hotel.Domain.Interfaces;
 
 namespace Hotel.Application.Services;
 
+/// <summary>
+/// Сервис для выполнения аналитических запросов
+/// </summary>
 public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyticsService
 {
+    /// <summary>
+    /// Получение клиентов, проживавших в номерах указанного типа
+    /// </summary>
+    /// <param name="roomTypeId">Id типа комнаты</param>
+    /// <returns>Список DTO клиентов</returns>
     public async Task<IReadOnlyList<ClientDto>> GetClientsByRoomTypeAsync(int roomTypeId)
     {
         var bookings = await bookingRepository.GetAllAsync();
@@ -22,6 +30,11 @@ public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyti
             .ToList();
     }
 
+    /// <summary>
+    /// Получение номеров, занятых в указанную дату
+    /// </summary>
+    /// <param name="date">Дата проверки</param>
+    /// <returns>Список номеров</returns>
     public async Task<IReadOnlyList<int>> GetBookedRoomsAsync(DateTime date)
     {
         var bookings = await bookingRepository.GetAllAsync();
@@ -33,6 +46,10 @@ public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyti
             .ToList();
     }
 
+    /// <summary>
+    /// Получение топ 5 наиболее часто бронируемых номеров
+    /// </summary>
+    /// <returns>Список номеров</returns>
     public async Task<IReadOnlyList<int>> GetTop5BookedRoomsAsync()
     {
         var bookings = await bookingRepository.GetAllAsync();
@@ -45,6 +62,10 @@ public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyti
             .ToList();
     }
 
+    /// <summary>
+    /// Получение количества бронирований для каждого номера
+    /// </summary>
+    /// <returns>Список с количеством бронирований</returns>
     public async Task<IReadOnlyList<WorkFrequencyDto>> GetBookingsCountPerRoomAsync()
     {
         var bookings = await bookingRepository.GetAllAsync();
@@ -55,6 +76,10 @@ public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyti
             .ToList();
     }
 
+    /// <summary>
+    /// Получение топ 5 клиентов по суммарной стоимости проживания
+    /// </summary>
+    /// <returns>Список клиентов с суммами</returns>
     public async Task<IReadOnlyList<RepeatVisitDto>> GetTop5ClientsByStayAsync()
     {
         var bookings = await bookingRepository.GetAllAsync();

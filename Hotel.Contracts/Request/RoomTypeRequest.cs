@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Hotel.Domain.Enums;
+﻿using Hotel.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Hotel.Contracts.Request;
 

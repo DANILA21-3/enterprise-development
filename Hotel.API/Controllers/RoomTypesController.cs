@@ -1,5 +1,4 @@
 ﻿using Hotel.Application.Interfaces;
-using Hotel.Contracts.DTO;
 using Hotel.Contracts.Request;
 using Microsoft.AspNetCore.Mvc;
 
