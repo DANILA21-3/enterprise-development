@@ -11,21 +11,21 @@ public interface ICrudService<TRequest, TDto>
     /// Получение всех записей
     /// </summary>
     /// <returns></returns>
-    Task<IReadOnlyList<TDto>> GetAllAsync();
+    public Task<IReadOnlyList<TDto>> GetAllAsync();
 
     /// <summary>
     /// Вернуть запись
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task<TDto> GetAsync(int id);
+    public Task<TDto> GetAsync(int id);
 
     /// <summary>
     /// Добавление записи
     /// </summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task<TDto> CreateAsync(TRequest request);
+    public Task<TDto> CreateAsync(TRequest request);
 
     /// <summary>
     /// Обновление существующей записи
@@ -33,12 +33,12 @@ public interface ICrudService<TRequest, TDto>
     /// <param name="id"></param>
     /// <param name="request"></param>
     /// <returns></returns>
-    Task UpdateAsync(int id, TRequest request);
+    public Task UpdateAsync(int id, TRequest request);
 
     /// <summary>
     /// Удалить запись
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task DeleteAsync(int id);
+    public Task DeleteAsync(int id);
 }
