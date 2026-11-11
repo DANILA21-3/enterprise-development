@@ -82,11 +82,11 @@
 ## Структура проекта
 В конце работы получены проекты с следующей структурой (отображены в виде двух скриншотов:
 <p align="center">
-  Скриншот №1:
-<img width="301" height="1086" alt="image" src="https://github.com/user-attachments/assets/e7338107-4353-481d-8e09-2f8c6d0256ef" />
-
-Скриншот №2:
-<img width="307" height="720" alt="image" src="https://github.com/user-attachments/assets/58a2e582-752b-4834-b8c7-a7cdabb232d1" />
+  Скриншот №1:<br>
+  <img width="301" height="1086" alt="image" src="https://github.com/user-attachments/assets/e7338107-4353-481d-8e09-2f8c6d0256ef" />
+  <br><br>
+  Скриншот №2:<br>
+  <img width="307" height="720" alt="image" src="https://github.com/user-attachments/assets/58a2e582-752b-4834-b8c7-a7cdabb232d1" />
 </p>
 
 ## Инструкция к запуску
