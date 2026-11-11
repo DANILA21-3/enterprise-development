@@ -2,7 +2,7 @@ name: Run dotnet tests
 
 on:
   push:
-    branches: [ main, lab1 ]
+    branches: [ main, lab1, lab2 ]
   pull_request:
     branches: [ main ]
 
@@ -19,10 +19,10 @@ jobs:
           dotnet-version: 10.0.x
 
       - name: Restore
-        run: dotnet restore
+        run: dotnet restore Hotel.slnx
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build Hotel.slnx --no-restore --configuration Release
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test Hotel.slnx --no-build --configuration Release --verbosity normal
