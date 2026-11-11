@@ -67,11 +67,14 @@ public abstract class CrudService<TEntity, TRequest, TDto> : ICrudService<TReque
     /// <exception cref="KeyNotFoundException">Запись не найдена</exception>
     public virtual async Task UpdateAsync(int id, TRequest request)
     {
-        var existing = await Repository.GetByIdAsync(id);
-        if (existing == null) throw new KeyNotFoundException($"Запись(Id={id}) не найдена");
-
         var updated = await BuildEntityAsync(request, id);
-        await Repository.UpdateAsync(id, entity => CopyValues(updated, entity));
+
+        var success = await Repository.UpdateAsync(id, entity => CopyValues(updated, entity));
+
+        if (!success)
+        {
+            throw new KeyNotFoundException($"Запись(Id={id}) не найдена");
+        }
     }
 
     /// <summary>

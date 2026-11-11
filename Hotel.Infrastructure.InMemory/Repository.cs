@@ -64,14 +64,16 @@ public class InMemoryRepository<T> : IRepository<T> where T : class, IEntity
     /// <param name="id">Id обновляемой сущности</param>
     /// <param name="update">Обновляющее действие</param>
     /// <exception cref="KeyNotFoundException">Сущность не найдена</exception>
-    public Task UpdateAsync(int id, Action<T> update)
+    /// <returns>True, если сущность найдена и обновлена, иначе False</returns>
+    public Task<bool> UpdateAsync(int id, Action<T> update)
     {
         lock (_lock)
         {
             var entity = _items.FirstOrDefault(x => x.Id == id);
-            if (entity == null) throw new KeyNotFoundException($"Сущность(Id={id}) не найдена.");
+            if (entity == null) return Task.FromResult(false);
+
             update(entity);
-            return Task.CompletedTask;
+            return Task.FromResult(true);
         }
     }
 

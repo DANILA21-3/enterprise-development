@@ -30,7 +30,7 @@ public interface IRepository<T> where T : class, IEntity
     /// <param name="id">Id обновляемой сущности</param>
     /// <param name="update"></param>
     /// <returns></returns>
-    public Task UpdateAsync(int id, Action<T> update);
+    public Task<bool> UpdateAsync(int id, Action<T> update);
 
     /// <summary>
     /// Удаление сущности 
