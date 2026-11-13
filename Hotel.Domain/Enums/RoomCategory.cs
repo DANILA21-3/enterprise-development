@@ -13,7 +13,7 @@ public enum RoomCategory
     /// <summary>
     /// Стандарт
     /// </summary>
-    Standart = 2,
+    Standard = 2,
 
     /// <summary>
     /// Люкс

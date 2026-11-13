@@ -36,6 +36,6 @@ public class RoomType : IEntity
     /// <summary>
     /// Цена комнаты за сутки проживания (в рублях)
     /// </summary>
-    public required int Price { get; set; }
+    public required decimal Price { get; set; }
 
 }

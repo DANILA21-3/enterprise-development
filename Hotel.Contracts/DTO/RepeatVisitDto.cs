@@ -5,4 +5,4 @@
 /// </summary>
 /// <param name="ClientId">Id клиента</param>
 /// <param name="Count">Количество повторных визитов</param>
-public sealed record RepeatVisitDto(int ClientId, int Count);
+public sealed record RepeatVisitDto(int ClientId, decimal Count);

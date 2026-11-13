@@ -12,6 +12,9 @@ namespace Hotel.Application.Services;
 public abstract class CrudService<TEntity, TRequest, TDto> : ICrudService<TRequest, TDto>
     where TEntity : class, IEntity
 {
+    /// <summary>
+    /// Репозиторий для доступа к данным
+    /// </summary>
     protected readonly IRepository<TEntity> Repository;
 
     /// <summary>

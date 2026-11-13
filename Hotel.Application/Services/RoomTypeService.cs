@@ -10,7 +10,9 @@ namespace Hotel.Application.Services;
 /// <summary>
 /// Сервис для управления типами комнат
 /// </summary>
-public class RoomTypeService(IRepository<RoomType> repository)
+/// <param name="repository">Репозиторий типов комнат</param>
+/// <param name="roomRepository">Репозиторий комнат</param>
+public class RoomTypeService(IRepository<RoomType> repository, IRepository<Room> roomRepository)
     : CrudService<RoomType, RoomTypeRequest, RoomTypeDto>(repository), IRoomTypeService
 {
     /// <summary>
@@ -45,4 +47,16 @@ public class RoomTypeService(IRepository<RoomType> repository)
     /// Преобразование сущности типа комнаты в DTO
     /// </summary>
     protected override RoomTypeDto ToDto(RoomType entity) => entity.ToDto();
+
+    /// <summary>
+    /// Проверка типа комнаты на наличие комнат перед удалением
+    /// </summary>
+    protected override async Task CheckDeleteAsync(RoomType entity)
+    {
+        var rooms = await roomRepository.GetAllAsync();
+        if (rooms.Any(r => r.RoomType.Id == entity.Id))
+        {
+            throw new ArgumentException($"Нельзя удалить тип комнаты(Id={entity.Id}), так как он используется при бронировании");
+        }
+    }
 }

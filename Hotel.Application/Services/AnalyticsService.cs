@@ -12,15 +12,14 @@ namespace Hotel.Application.Services;
 public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyticsService
 {
     /// <summary>
-    /// Получение клиентов, проживавших в номерах указанного типа
+    /// Получение клиентов по типу комнаты
     /// </summary>
     /// <param name="roomTypeId">Id типа комнаты</param>
-    /// <returns>Список DTO клиентов</returns>
+    /// <returns>Список клиентов</returns>
     public async Task<IReadOnlyList<ClientDto>> GetClientsByRoomTypeAsync(int roomTypeId)
     {
-        var bookings = await bookingRepository.GetAllAsync();
+        var bookings = await bookingRepository.GetByConditionAsync(b => b.Room.RoomType.Id == roomTypeId);
         return bookings
-            .Where(b => b.Room.RoomType.Id == roomTypeId)
             .Select(b => b.Client)
             .DistinctBy(c => c.Id)
             .OrderBy(c => c.LastName)
@@ -37,9 +36,8 @@ public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyti
     /// <returns>Список номеров</returns>
     public async Task<IReadOnlyList<int>> GetBookedRoomsAsync(DateTime date)
     {
-        var bookings = await bookingRepository.GetAllAsync();
+        var bookings = await bookingRepository.GetByConditionAsync(b => b.DateArrival <= date && b.DateArrival.AddDays(b.DayCount) >= date);
         return bookings
-            .Where(b => b.DateArrival <= date && b.DateArrival.AddDays(b.DayCount) >= date)
             .Select(b => b.Room.Number)
             .Distinct()
             .OrderBy(n => n)
@@ -80,7 +78,7 @@ public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyti
     /// Получение топ 5 клиентов по суммарной стоимости проживания
     /// </summary>
     /// <returns>Список клиентов с суммами</returns>
-    public async Task<IReadOnlyList<RepeatVisitDto>> GetTop5ClientsByStayAsync()
+    public async Task<IReadOnlyList<TopClientDto>> GetTop5ClientsByStayAsync()
     {
         var bookings = await bookingRepository.GetAllAsync();
         return bookings
@@ -88,7 +86,10 @@ public class AnalyticsService(IRepository<Booking> bookingRepository) : IAnalyti
             .OrderByDescending(g => g.Sum(b => b.DayCount * b.Room.RoomType.Price))
             .ThenBy(g => g.Key)
             .Take(5)
-            .Select(g => new RepeatVisitDto(g.Key, g.Sum(b => b.DayCount * b.Room.RoomType.Price)))
+            .Select(g => new TopClientDto(
+                g.Key,
+                g.First().Client.LastName + " " + g.First().Client.FirstName,
+                g.Sum(b => b.DayCount * b.Room.RoomType.Price)))
             .ToList();
     }
 }

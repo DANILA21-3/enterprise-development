@@ -17,4 +17,4 @@ public sealed record RoomTypeDto(
     int RoomArea,
     int BedCount,
     bool HasBathroom,
-    int Price);
+    decimal Price);

@@ -94,12 +94,13 @@ public class InMemoryRepository<T> : IRepository<T> where T : class, IEntity
     }
 
     /// <summary>
-    /// Проверить существует ли сущность с указанным параметром
+    /// Получение сущностей по условию
     /// </summary>
-    /// <param name="predicate">Условие</param>
-    /// <returns>True при >=1 найденных сущностей, иначе False</returns>
-    public Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate)
+    public Task<IReadOnlyList<T>> GetByConditionAsync(Expression<Func<T, bool>> predicate)
     {
-        lock (_lock) return Task.FromResult(_items.Any(predicate.Compile()));
+        lock (_lock)
+        {
+            return Task.FromResult<IReadOnlyList<T>>(_items.Where(predicate.Compile()).ToList());
+        }
     }
 }

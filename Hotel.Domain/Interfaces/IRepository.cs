@@ -2,6 +2,10 @@
 
 namespace Hotel.Domain.Interfaces;
 
+/// <summary>
+/// Интерфейс для работы с хранилищем сущностей
+/// </summary>
+/// <typeparam name="T">Тип сущности</typeparam>
 public interface IRepository<T> where T : class, IEntity
 {
     /// <summary>
@@ -40,9 +44,9 @@ public interface IRepository<T> where T : class, IEntity
     public Task DeleteAsync(int id);
 
     /// <summary>
-    /// Проверка существования сущности по значению поля
+    /// Получение сущностей по условию
     /// </summary>
-    /// <param name="predicate">значение поля</param>
-    /// <returns></returns>
-    public Task<bool> ExistsAsync(Expression<Func<T, bool>> predicate);
+    /// <param name="predicate">Условие фильтрации</param>
+    /// <returns>Список найденных сущностей</returns>
+    public Task<IReadOnlyList<T>> GetByConditionAsync(Expression<Func<T, bool>> predicate);
 }

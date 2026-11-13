@@ -37,5 +37,5 @@ public interface IAnalyticsService
     /// Получение топ 5 клиентов по суммарной стоимости проживания
     /// </summary>
     /// <returns>Список клиентов с суммами</returns>
-    public Task<IReadOnlyList<RepeatVisitDto>> GetTop5ClientsByStayAsync();
+    public Task<IReadOnlyList<TopClientDto>> GetTop5ClientsByStayAsync();
 }

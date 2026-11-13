@@ -3,6 +3,9 @@ using Hotel.Domain.Enums;
 
 namespace Hotel.Domain.Data;
 
+/// <summary>
+/// Тестовые данные для гостиницы
+/// </summary>
 public class HotelSeed
 {
     /// <summary>
@@ -34,8 +37,8 @@ public class HotelSeed
         // Типы комнат
         var type1 = new RoomType { Id = 1, Category = RoomCategory.Economy, RoomArea = 8, BedCount = 1, HasBathroom = false, Price = 2500 };
         var type2 = new RoomType { Id = 2, Category = RoomCategory.Economy, RoomArea = 10, BedCount = 1, HasBathroom = false, Price = 2700 };
-        var type3 = new RoomType { Id = 3, Category = RoomCategory.Standart, RoomArea = 20, BedCount = 1, HasBathroom = false, Price = 5000 };
-        var type4 = new RoomType { Id = 4, Category = RoomCategory.Standart, RoomArea = 15, BedCount = 1, HasBathroom = false, Price = 4000 };
+        var type3 = new RoomType { Id = 3, Category = RoomCategory.Standard, RoomArea = 20, BedCount = 1, HasBathroom = false, Price = 5000 };
+        var type4 = new RoomType { Id = 4, Category = RoomCategory.Standard, RoomArea = 15, BedCount = 1, HasBathroom = false, Price = 4000 };
         var type5 = new RoomType { Id = 5, Category = RoomCategory.Luxe, RoomArea = 25, BedCount = 2, HasBathroom = true, Price = 11000 };
         var type6 = new RoomType { Id = 6, Category = RoomCategory.Luxe, RoomArea = 30, BedCount = 2, HasBathroom = true, Price = 12000 };
         var type7 = new RoomType { Id = 7, Category = RoomCategory.Business, RoomArea = 45, BedCount = 3, HasBathroom = true, Price = 18000 };

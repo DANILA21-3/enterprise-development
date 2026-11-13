@@ -10,7 +10,7 @@ namespace Hotel.Application.Services;
 /// <summary>
 /// Сервис для управления комнатами
 /// </summary>
-public class RoomService(IRepository<Room> repository, IRepository<RoomType> roomTypeRepository)
+public class RoomService(IRepository<Room> repository, IRepository<RoomType> roomTypeRepository, IRepository<Booking> bookingRepository)
     : CrudService<Room, RoomRequest, RoomDto>(repository), IRoomService
 {
     /// <summary>
@@ -46,4 +46,16 @@ public class RoomService(IRepository<Room> repository, IRepository<RoomType> roo
     /// Преобразование сущности комнаты в DTO
     /// </summary>
     protected override RoomDto ToDto(Room entity) => entity.ToDto();
+
+    /// <summary>
+    /// Проверка комнаты на наличие бронирования перед удалением
+    /// </summary>
+    protected override async Task CheckDeleteAsync(Room entity)
+    {
+        var bookings = await bookingRepository.GetAllAsync();
+        if (bookings.Any(b => b.Room.Id == entity.Id))
+        {
+            throw new ArgumentException("Нельзя удалить комнату, так как в ней проживает клиент");
+        }
+    }
 }

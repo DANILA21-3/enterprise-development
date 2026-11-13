@@ -35,14 +35,16 @@ public class ApiExceptionHandler(ILogger<ApiExceptionHandler> logger) : IExcepti
             title = "Ошибка сервера";
         }
 
-        string detail;
-        if (status == StatusCodes.Status500InternalServerError)
+        var detail = string.Empty;
+
+        if (status >= 500 && status <= 599)
         {
-            logger.LogError(exception, $"Ошибка сервера при обработке {httpContext.Request.Method} {httpContext.Request.Path}");
+            logger.LogError(exception, "Ошибка сервера: {Method} {Path}", httpContext.Request.Method, httpContext.Request.Path);
             detail = "Рекомендуем обратиться в поддержку";
         }
-        else
+        else if (status >= 400 && status <= 499)
         {
+            logger.LogWarning(exception, "Ошибка клиента: {Method} {Path}", httpContext.Request.Method, httpContext.Request.Path);
             detail = exception.Message;
         }
 
