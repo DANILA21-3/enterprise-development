@@ -1,6 +1,8 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Hotel.Contracts.DTO;
+using Hotel.Infrastructure.InMemory;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
 
@@ -15,7 +17,16 @@ public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
 
     public ApiTests(WebApplicationFactory<Program> factory)
     {
-        _client = factory.CreateClient();
+        var customFactory = factory.WithWebHostBuilder(builder =>
+        {
+            builder.UseEnvironment("Testing");
+            builder.ConfigureServices(services =>
+            {
+                services.AddInMemoryInfrastructure();
+            });
+        });
+
+        _client = customFactory.CreateClient();
     }
 
     /// <summary>

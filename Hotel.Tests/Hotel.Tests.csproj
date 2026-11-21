@@ -8,6 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Testcontainers.PostgreSql" Version="4.17.0" />
 		<PackageReference Include="xunit.v3" Version="4.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.0" />
 	</ItemGroup>
@@ -16,6 +17,8 @@
 		<ProjectReference Include="..\Hotel.Domain\Hotel.Domain.csproj" />
 		<ProjectReference Include="..\Hotel.Contracts\Hotel.Contracts.csproj" />
 		<ProjectReference Include="..\Hotel.API\Hotel.API.csproj" />
+		<ProjectReference Include="..\Hotel.Infrastructure.InMemory\Hotel.Infrastructure.InMemory.csproj" />
+		<ProjectReference Include="..\Hotel.Infrastructure.Database\Hotel.Infrastructure.Database.csproj" />
 	</ItemGroup>
 
 </Project>

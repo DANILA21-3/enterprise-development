@@ -18,8 +18,9 @@ builder.Services.AddDatabaseInfrastructure();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+if (!app.Environment.IsEnvironment("Testing"))
 {
+    using var scope = app.Services.CreateScope();
     var dbContext = scope.ServiceProvider.GetRequiredService<HotelDbContext>();
     await dbContext.Database.MigrateAsync();
 }
