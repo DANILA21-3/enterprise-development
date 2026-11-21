@@ -1,6 +1,6 @@
 # Разработка корпоративных приложений
 
-## Лабораторная работа №2
+## Лабораторная работа №3
 
 Вариант 60: Предметная область — гостиница
 
@@ -9,6 +9,10 @@
 - C#
 - .NET 10
 - ASP.NET Core
+- Entity Framework Core
+- PostgreSQL
+- .NET Aspire
+- Docker
 - xUnit v3
 - LINQ
 - Scalar
@@ -16,91 +20,76 @@
 
 ## Ход работы
 
-Для выполнения работы к ранее созданным проектам в [л/р №1](https://github.com/DANILA21-3/enterprise-development/tree/lab1) были дополнительно созданы следующие проекты:
+Для выполнения работы к ранее созданным проектам в [л/р №1](https://github.com/DANILA21-3/enterprise-development/tree/lab1) и [л/р №2](https://github.com/DANILA21-3/enterprise-development/tree/lab2) были дополнительно созданы следующие проекты:
 
-- **Hotel.API** — сервер
-- **Hotel.Application** — логика сервера: сервисы, обработка запросов, mapping
-- **Hotel.Infrastructure.InMemory** — реализация хранения данных в памяти
-- **Hotel.Contracts** — DTO и обработка Request
+- **Hotel.Infrastructure.Database** — для работы с базой данных PostgreSQL через Entity Framework Core (контекст, конфигурации, миграции и репозиторий)
+- **Hotel.AppHost** — оркестратор на базе Aspire для запуска контейнера с PostgreSQL и сервера API
 
 ## Что было сделано
 
-На основе первой лабораторной работы была добавлена структура сервера. Для этого были добавлены DTO для запросов и ответов, сервисы с логикой и маппингом, репозитории, контроллеры для CRUD-операций, контроллер аналитики, глобальный обработчик ошибок, настроена документация Scalar, а также тесты API.
+На основе второй лабораторной работы хранение данных было переведено из оперативной памяти в полноценную реляционную базу данных *PostgreSQL*. При этом старая реализация `Hotel.Infrastructure.InMemory` была сохранена, чтобы ранее написанные тесты продолжали функционировать.
 
-### 1. Сервисы 
+### 1. Контекст базы данных и репозиторий (EF Core)
 
-Вся обработка данных выполнена на основе `CrudService`. Он отвечает за обработку всех записей, а его наследники:`ClientService`, `RoomTypeService`, `RoomService`, `BookingService` обрабатывают эти запросы касаемо своих сущностей. Также реализован `AnalyticsService`, который отвечает за выполнение аналитических запросов.
+В проекте `Hotel.Infrastructure.Database` реализованы следующие компоненты:
 
-Все сервисы проверяют входящие данные и преобразуют сущности в DTO для безопасной передачи.
+- `HotelDbContext` — контекст базы данных гостиницы для связи сущностей из `Hotel.Domain` с таблицами в PostgreSQL.
+- `EfRepository<T>` — обобщенный репозиторий, реализующий интерфейс `IRepository<T>` для выполнения CRUD-операций и фильтрации в БД.
+- `DependencyInjection` — регистрация зависимостей слоя базы данных (`AddDatabaseInfrastructure`).
 
-Также был реализован обработчик ошибок, который реагирует на инциденты и отправляет json файл с ошибкой 404 и пояснениями вместо ошибки 500 с указанием нежеланных подробностей. Пример:
-<p align="center">
-<img width="1387" height="469" alt="image" src="https://github.com/user-attachments/assets/595b5e2d-ba3c-41f8-b99d-1ad79e462ee0" />
-</p>
+### 2. Миграции и начальное заполнение (Data Seeding)
 
-### 2. REST API (CRUD)
-Разработаны контроллеры для всех сущностей для взаимодействия с базой данных посредством http запросов:
-- `/api/clients` — управление клиентами
-- `/api/rooms` — управление комнатами
-- `/api/roomtypes` — управление типами комнат
-- `/api/bookings` — управление бронированиями
-
-Реализованы следующие методы: `GET`, `POST`, `PUT`, `DELETE`
-
-### 3. Аналитические запросы
-
-Посредством контроллера `AnalyticsController` теперь можно вызвать посредством использования API:
-- `GET /api/analytics/clients-by-room-type/{id}` — клиенты по типу номера
-- `GET /api/analytics/booked-rooms?date=2019-04-13` — занятые номера на указанную дату
-- `GET /api/analytics/top5-booked-rooms` — топ 5 часто бронируемых номеров
-- `GET /api/analytics/bookings-count` — количество броней на каждый номер
-- `GET /api/analytics/top5-clients` — топ 5 клиентов по стоимости проживания
-
-### 4. Данные
-Данные хранятся в оперативной памяти в коллекциях. Для этого реализован паттерн Repository и класс `InMemoryRepository<T>`. Для удобного запуска тестов и работы API создан единый набор данных в `HotelSeed.cs` (он же используется в тестах через `HotelFixture`). Набор содержит:
+С помощью инструментов Entity Framework Core создана начальная миграция, которая формирует структуру таблиц для сущностей `Clients`, `RoomTypes`, `Rooms`, `Bookings` и автоматически заполняет их тестовыми данными из `HotelSeed.cs`:
 - 10 типов номеров
 - 15 номеров
 - 10 клиентов
 - 20 бронирований
 
-### 5. Scalar
+При запуске сервера `Hotel.API` автоматически таблицы и начальные данные разворачиваются в контейнере PostgreSQL.
 
-Для удобного взаимодействия с сервером и его возможностями был использован *Scalar*. Для взаимодействия с ним достаточно запустить сервер и зайти через *localhost*.
+### 3. Оркестрация через .NET Aspire
 
-
-## Тесты
-
-Теперь необходимо было реализовать тесты, которые проверяют работу API и используют аналитические запросы. Список реализованных тестов:
-1) Аналитика:
-- `GetTop5Clients_ReturnsOkAndFiveItems` — топ 5 клиентов
-- `GetBookingsCount_ReturnsOk` — проверка количества бронирований
-- `GetBookedRooms_ReturnsOk` — проверка списка занятых номеров на дату
-2) СRUD:
-- `GetClients_ReturnsOk` — базовая проверка получения клиентов
-- `GetNonExistentClient_ReturnsNotFound` — проверка обработчика ошибок
+В проекте `Hotel.AppHost` настроено совместное развертывание базы данных и веб-сервера:
+- Поднимается контейнер с PostgreSQL и создается база данных `hoteldb`.
+- Запускается проект `Hotel.API` для обрабатки запросов пользователей и отображения Scalar.
 
 ## Структура проекта
-В конце работы получены проекты с следующей структурой (отображены в виде двух скриншотов:
+
+В конце работы получены проекты со следующей структурой:
 <p align="center">
   Скриншот №1:<br>
-  <img width="301" height="1086" alt="image" src="https://github.com/user-attachments/assets/e7338107-4353-481d-8e09-2f8c6d0256ef" />
+  <img width="278" height="1120" alt="image" src="https://github.com/user-attachments/assets/33b415d6-7ca5-46b7-b72c-77f8d36d21f3" />
   <br><br>
   Скриншот №2:<br>
-  <img width="307" height="720" alt="image" src="https://github.com/user-attachments/assets/58a2e582-752b-4834-b8c7-a7cdabb232d1" />
+  <img width="356" height="1114" alt="image" src="https://github.com/user-attachments/assets/cb1d0aa7-b42c-4967-a697-30b27b712151" />
+  <br><br>
+  Скриншот №3:<br>
+  <img width="214" height="148" alt="image" src="https://github.com/user-attachments/assets/09b54a68-b5cc-4231-b0be-ae572d8da502" />
+  <br><br>
 </p>
 
 ## Инструкция к запуску
 
-Для запуска тестов необходимо:
+Для запуска проекта необходимо:
 
-1. Установить **.NET SDK 10**
-2. Перейти в директорию солюшена и ввести в терминале `Visual studio` следующее:
-- `dotnet build`
-- `dotnet test`
+1. Установить **.NET SDK 10** и **Docker Desktop** (скачать можно с официального сайта).
+2. Запустить **Docker Desktop** и дождаться, пока он полностью прогрузится. В левом нижнем углу его можно запустить и убедиться, что он работает:
 
-По окончанию выполнения тестов получен результат (Тесты запускаются с л/р №1 и №2, поэтому их 10):
 <p align="center">
-<img width="630" height="204" alt="image" src="https://github.com/user-attachments/assets/38f732ab-bbbc-4f62-b2e0-4cf249376fc0" />
+<img width="418" height="34" alt="image" src="https://github.com/user-attachments/assets/5add306c-4a39-4ed8-b875-a230d724c7eb" />
+
 </p>
 
-Для использования API необходимо перейти в `Hotel.slnx` и нажать на F5, запустив сборку. В браузере ввести `https://localhost:7169/scalar`, где 7169 это порт, который указан в терминале при запуске сервера.
+3. Открыть солюшен `Hotel.slnx` в `Visual Studio`, выбрать стартовым проектом **`Hotel.AppHost`** и нажать **F5**.
+4. После сборки в браузере откроется страница **.NET Aspire**. Нужно подождать пару секунд, пока `postgres`, `hoteldb` и `hotel-api` перейдут в зеленый статус `Running`.
+
+<p align="center">
+<img width="1143" height="324" alt="image" src="https://github.com/user-attachments/assets/667d9416-c3e3-4b0f-95a6-4405f2dae4e1" />
+</p>
+
+5. Нажать на кликабельную ссылку напротив `hotel-api`. Откроется интерфейс **Scalar**, где можно отправлять запросы к API и убедиться, что данные загружаются из базы данных.
+
+<p align="center">
+<img width="1837" height="603" alt="image" src="https://github.com/user-attachments/assets/1fd3a8ec-b434-416e-839e-027af6cd33bd" />
+</p>
+
