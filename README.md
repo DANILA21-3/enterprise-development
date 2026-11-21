@@ -81,7 +81,7 @@
 </p>
 
 3. Открыть солюшен `Hotel.slnx` в `Visual Studio`, выбрать стартовым проектом **`Hotel.AppHost`** и нажать **F5**.
-4. После сборки в браузере откроется страница **.NET Aspire**. Нужно подождать пару секунд, пока `postgres`, `hoteldb` и `hotel-api` перейдут в зеленый статус `Running`.
+4. После сборки в браузере откроется страница **.NET Aspire**. Нужно подождать несколько секунд, пока `postgres`, `hoteldb` и `hotel-api` перейдут в зеленый статус `Running`.
 
 <p align="center">
 <img width="1143" height="324" alt="image" src="https://github.com/user-attachments/assets/667d9416-c3e3-4b0f-95a6-4405f2dae4e1" />
