@@ -1,4 +1,5 @@
 ﻿using Hotel.Application.Interfaces;
+using Hotel.Contracts.DTO;
 using Hotel.Contracts.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ public class RoomTypesController(IRoomTypeService service) : ControllerBase
     /// </summary>
     /// <returns>Список типов комнат</returns>
     [HttpGet]
-    public async Task<IActionResult> GetAll() => Ok(await service.GetAllAsync());
+    public async Task<ActionResult<IReadOnlyList<RoomTypeDto>>> GetAll() => Ok(await service.GetAllAsync());
 
     /// <summary>
     /// Получение типа комнаты по Id
@@ -25,15 +26,15 @@ public class RoomTypesController(IRoomTypeService service) : ControllerBase
     /// <param name="id">Id типа комнаты</param>
     /// <returns>Тип комнаты</returns>
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> Get(int id) => Ok(await service.GetAsync(id));
+    public async Task<ActionResult<RoomTypeDto>> Get(int id) => Ok(await service.GetAsync(id));
 
     /// <summary>
     /// Создание нового типа комнаты
     /// </summary>
-    /// <param name="request">данные о типе комнаты</param>
+    /// <param name="request">Данные типа комнаты</param>
     /// <returns>Созданный тип комнаты</returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] RoomTypeRequest request)
+    public async Task<ActionResult<RoomTypeDto>> Create([FromBody] RoomTypeRequest request)
     {
         var result = await service.CreateAsync(request);
         return CreatedAtAction(nameof(Get), new { id = result.Id }, result);

@@ -28,7 +28,7 @@ public class ApiTests : IClassFixture<WebApplicationFactory<Program>>
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        var result = await response.Content.ReadFromJsonAsync<List<RepeatVisitDto>>(cancellationToken: TestContext.Current.CancellationToken);
+        var result = await response.Content.ReadFromJsonAsync<List<TopClientDto>>(cancellationToken: TestContext.Current.CancellationToken);
         Assert.NotNull(result);
         Assert.Equal(5, result.Count);
     }

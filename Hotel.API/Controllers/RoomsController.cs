@@ -1,4 +1,5 @@
 ﻿using Hotel.Application.Interfaces;
+using Hotel.Contracts.DTO;
 using Hotel.Contracts.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ public class RoomsController(IRoomService service) : ControllerBase
     /// </summary>
     /// <returns>Список комнат</returns>
     [HttpGet]
-    public async Task<IActionResult> GetAll() => Ok(await service.GetAllAsync());
+    public async Task<ActionResult<IReadOnlyList<RoomDto>>> GetAll() => Ok(await service.GetAllAsync());
 
     /// <summary>
     /// Получение комнаты по Id
@@ -25,7 +26,7 @@ public class RoomsController(IRoomService service) : ControllerBase
     /// <param name="id">Id комнаты</param>
     /// <returns>Комната</returns>
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> Get(int id) => Ok(await service.GetAsync(id));
+    public async Task<ActionResult<RoomDto>> Get(int id) => Ok(await service.GetAsync(id));
 
     /// <summary>
     /// Создание новой комнаты
@@ -33,7 +34,7 @@ public class RoomsController(IRoomService service) : ControllerBase
     /// <param name="request">Данные комнаты</param>
     /// <returns>Созданная комната</returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] RoomRequest request)
+    public async Task<ActionResult<RoomDto>> Create([FromBody] RoomRequest request)
     {
         var result = await service.CreateAsync(request);
         return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
