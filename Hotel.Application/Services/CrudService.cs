@@ -9,22 +9,15 @@ namespace Hotel.Application.Services;
 /// <typeparam name="TEntity">Инициализируемые сущности</typeparam>
 /// <typeparam name="TRequest">Запрос</typeparam>
 /// <typeparam name="TDto">Возвращаемые значения сущности</typeparam>
-public abstract class CrudService<TEntity, TRequest, TDto> : ICrudService<TRequest, TDto>
+/// <param name="repository">Репозиторий для доступа к данным</param>
+public abstract class CrudService<TEntity, TRequest, TDto>(IRepository<TEntity> repository)
+    : ICrudService<TRequest, TDto>
     where TEntity : class, IEntity
 {
     /// <summary>
     /// Репозиторий для доступа к данным
     /// </summary>
-    protected readonly IRepository<TEntity> Repository;
-
-    /// <summary>
-    /// Инициализация сущностей
-    /// </summary>
-    /// <param name="repository">Репозиторий</param>
-    protected CrudService(IRepository<TEntity> repository)
-    {
-        Repository = repository;
-    }
+    protected readonly IRepository<TEntity> Repository = repository;
 
     /// <summary>
     /// Получение всех записей

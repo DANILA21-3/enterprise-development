@@ -1,4 +1,5 @@
 ﻿using Hotel.Application.Interfaces;
+using Hotel.Contracts.DTO;
 using Hotel.Contracts.Request;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ public class BookingsController(IBookingService service) : ControllerBase
     /// </summary>
     /// <returns>Список бронирований</returns>
     [HttpGet]
-    public async Task<IActionResult> GetAll() => Ok(await service.GetAllAsync());
+    public async Task<ActionResult<IReadOnlyList<BookingDto>>> GetAll() => Ok(await service.GetAllAsync());
 
     /// <summary>
     /// Получение бронирования по Id
@@ -25,7 +26,7 @@ public class BookingsController(IBookingService service) : ControllerBase
     /// <param name="id">Id бронирования</param>
     /// <returns>Бронирование</returns>
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> Get(int id) => Ok(await service.GetAsync(id));
+    public async Task<ActionResult<BookingDto>> Get(int id) => Ok(await service.GetAsync(id));
 
     /// <summary>
     /// Создание нового бронирования
@@ -33,7 +34,7 @@ public class BookingsController(IBookingService service) : ControllerBase
     /// <param name="request">Данные бронирования</param>
     /// <returns>Созданное бронирование</returns>
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] BookingRequest request)
+    public async Task<ActionResult<BookingDto>> Create([FromBody] BookingRequest request)
     {
         var result = await service.CreateAsync(request);
         return CreatedAtAction(nameof(Get), new { id = result.Id }, result);
