@@ -56,7 +56,7 @@ public class ClientService(IRepository<Client> repository, IRepository<Booking> 
         var bookings = await bookingRepository.GetAllAsync();
         if (bookings.Any(b => b.Client.Id == entity.Id))
         {
-            throw new ArgumentException("Нельзя удалить клиента, у он в настоящее время проживает в гостинице");
+            throw new ArgumentException("Нельзя удалить клиента, так как он в настоящее время проживает в гостинице");
         }
     }
 }

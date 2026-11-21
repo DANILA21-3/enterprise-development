@@ -85,7 +85,7 @@ public class EfRepository<T>(HotelDbContext context) : IRepository<T> where T : 
     /// <returns>Список сущностей</returns>
     public async Task<IReadOnlyList<T>> GetByConditionAsync(Expression<Func<T, bool>> predicate)
     {
-        return await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
+        return await _dbSet.Where(predicate).ToListAsync();
     }
 
     /// <summary>
