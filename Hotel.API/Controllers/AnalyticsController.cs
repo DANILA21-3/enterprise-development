@@ -18,6 +18,8 @@ public class AnalyticsController(IAnalyticsService service) : ControllerBase
     /// <param name="roomTypeId">Id типа комнаты</param>
     /// <returns>Список клиентов</returns>
     [HttpGet("clients-by-room-type/{roomTypeId:int}")]
+    [ProducesResponseType(typeof(IReadOnlyList<ClientDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetClientsByRoomType(int roomTypeId)
         => Ok(await service.GetClientsByRoomTypeAsync(roomTypeId));
 
@@ -27,6 +29,7 @@ public class AnalyticsController(IAnalyticsService service) : ControllerBase
     /// <param name="date">Дата (если не указана, берется текущая)</param>
     /// <returns>Список номеров</returns>
     [HttpGet("booked-rooms")]
+    [ProducesResponseType(typeof(IReadOnlyList<int>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<int>>> GetBookedRooms([FromQuery] DateTime? date)
     {
         var currentDate = date ?? DateTime.Today;
@@ -38,6 +41,7 @@ public class AnalyticsController(IAnalyticsService service) : ControllerBase
     /// </summary>
     /// <returns>Список номеров</returns>
     [HttpGet("top5-booked-rooms")]
+    [ProducesResponseType(typeof(IReadOnlyList<int>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<int>>> GetTop5()
         => Ok(await service.GetTop5BookedRoomsAsync());
 
@@ -46,6 +50,7 @@ public class AnalyticsController(IAnalyticsService service) : ControllerBase
     /// </summary>
     /// <returns>Список с количеством броней</returns>
     [HttpGet("bookings-count")]
+    [ProducesResponseType(typeof(IReadOnlyList<WorkFrequencyDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<WorkFrequencyDto>>> GetCount()
         => Ok(await service.GetBookingsCountPerRoomAsync());
 
@@ -54,6 +59,7 @@ public class AnalyticsController(IAnalyticsService service) : ControllerBase
     /// </summary>
     /// <returns>Список клиентов</returns>
     [HttpGet("top5-clients")]
+    [ProducesResponseType(typeof(IReadOnlyList<TopClientDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<TopClientDto>>> GetTop5Clients()
         => Ok(await service.GetTop5ClientsByStayAsync());
 }

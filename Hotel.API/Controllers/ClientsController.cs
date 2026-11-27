@@ -18,6 +18,7 @@ public class ClientsController(IClientService service) : ControllerBase
     /// </summary>
     /// <returns>Список клиентов</returns>
     [HttpGet]
+    [ProducesResponseType(typeof(IReadOnlyList<ClientDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IReadOnlyList<ClientDto>>> GetAll() => Ok(await service.GetAllAsync());
 
     /// <summary>
@@ -26,6 +27,8 @@ public class ClientsController(IClientService service) : ControllerBase
     /// <param name="id">Id клиента</param>
     /// <returns>Клиент</returns>
     [HttpGet("{id:int}")]
+    [ProducesResponseType(typeof(ClientDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ClientDto>> Get(int id) => Ok(await service.GetAsync(id));
 
     /// <summary>
@@ -34,6 +37,8 @@ public class ClientsController(IClientService service) : ControllerBase
     /// <param name="request">Данные клиента</param>
     /// <returns>Созданный клиент</returns>
     [HttpPost]
+    [ProducesResponseType(typeof(ClientDto), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<ClientDto>> Create([FromBody] ClientRequest request)
     {
         var result = await service.CreateAsync(request);
@@ -46,6 +51,9 @@ public class ClientsController(IClientService service) : ControllerBase
     /// <param name="id">Id клиента</param>
     /// <param name="request">Новые данные клиента</param>
     [HttpPut("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(int id, [FromBody] ClientRequest request)
     {
         await service.UpdateAsync(id, request);
@@ -57,6 +65,9 @@ public class ClientsController(IClientService service) : ControllerBase
     /// </summary>
     /// <param name="id">Id клиента</param>
     [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(int id)
     {
         await service.DeleteAsync(id);

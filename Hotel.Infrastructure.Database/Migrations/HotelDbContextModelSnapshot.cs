@@ -250,6 +250,9 @@ namespace Hotel.Infrastructure.Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("NumberPassport")
+                        .IsUnique();
+
                     b.ToTable("Clients");
 
                     b.HasData(

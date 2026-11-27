@@ -49,6 +49,7 @@ public class HotelDbContext(DbContextOptions<HotelDbContext> options) : DbContex
             entity.Property(e => e.FirstName).HasMaxLength(100);
             entity.Property(e => e.Patronymic).HasMaxLength(100);
             entity.Property(e => e.NumberPassport).HasMaxLength(50);
+            entity.HasIndex(e => e.NumberPassport).IsUnique();
             entity.Property(e => e.Citizenship).HasMaxLength(50);
         });
 
