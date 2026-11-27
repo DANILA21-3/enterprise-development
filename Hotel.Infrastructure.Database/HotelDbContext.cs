@@ -30,15 +30,6 @@ public class HotelDbContext(DbContextOptions<HotelDbContext> options) : DbContex
     public DbSet<Booking> Bookings => Set<Booking>();
 
     /// <summary>
-    /// Настройка типов данных при создании модели
-    /// </summary>
-    protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
-    {
-        configurationBuilder.Properties<DateTime>()
-            .HaveColumnType("timestamp without time zone");
-    }
-
-    /// <summary>
     /// Настройка таблиц и связей в базе данных
     /// </summary>
     protected override void OnModelCreating(ModelBuilder modelBuilder)

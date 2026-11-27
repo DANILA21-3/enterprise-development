@@ -6,7 +6,11 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddNpgsqlDbContext<HotelDbContext>("hoteldb");
+builder.AddMySqlDbContext<HotelDbContext>(
+    "hoteldb",
+    configureSettings: settings => settings.ServerVersion = "8.0.36-mysql");
+
+
 
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();

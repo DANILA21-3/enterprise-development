@@ -1,7 +1,7 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var postgres = builder.AddPostgres("postgres");
-var hotelDb = postgres.AddDatabase("hoteldb");
+var mysql = builder.AddMySql("mysql");
+var hotelDb = mysql.AddDatabase("hoteldb");
 
 builder.AddDotnetProject("hotel-api", "../Hotel.API/Hotel.API.csproj")
     .WithReference(hotelDb)
